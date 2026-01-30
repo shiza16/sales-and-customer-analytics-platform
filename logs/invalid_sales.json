@@ -1,0 +1,17 @@
+[
+    {
+        "transaction_id": "T003",
+        "customer_id": null,
+        "product_id": "P03",
+        "product_name": "Monitor",
+        "category": "Electronics",
+        "price": 299.5,
+        "quantity": -1,
+        "discount": 0.1,
+        "date": "2023-03-05 00:00:00",
+        "region": "East",
+        "insert_date": "2026-01-30 13:20:22",
+        "update_date": "2026-01-30 13:20:22",
+        "dq_errors": "Missing customer_id; Invalid quantity"
+    }
+]

@@ -1,0 +1,212 @@
+[
+    {
+        "transaction_id": "T001",
+        "customer_id": "C001",
+        "product": {
+            "id": "P01",
+            "name": "Laptop",
+            "category": "Electronics",
+            "price": 999.99
+        },
+        "quantity": 2,
+        "discount": 0.05,
+        "date": "2023/01/15 10:30:00",
+        "region": "North"
+    },
+    {
+        "transaction_id": "T002",
+        "customer_id": "C002",
+        "product": {
+            "id": "P02",
+            "name": "Mouse",
+            "category": "Accessories",
+            "price": 19.99
+        },
+        "quantity": 5,
+        "discount": null,
+        "date": "2023-02-10T14:15:00Z",
+        "region": "South"
+    },
+    {
+        "transaction_id": "T003",
+        "customer_id": null,
+        "product": {
+            "id": "P03",
+            "name": "Monitor",
+            "category": "Electronics",
+            "price": 299.5
+        },
+        "quantity": -1,
+        "discount": 0.1,
+        "date": "03-05-2023",
+        "region": "East"
+    },
+    {
+        "transaction_id": "T004",
+        "customer_id": "C004",
+        "product": {
+            "id": "P04",
+            "name": "Keyboard",
+            "category": "Accessories",
+            "price": 49.9
+        },
+        "quantity": 4,
+        "discount": 0.15,
+        "date": "2023-04-20",
+        "region": "West"
+    },
+    {
+        "transaction_id": "T005",
+        "customer_id": "C001",
+        "product": {
+            "id": "P05",
+            "name": "Desk",
+            "category": "Furniture",
+            "price": 189.0
+        },
+        "quantity": 3,
+        "discount": 0,
+        "date": "2023/05/12 12:30:00",
+        "region": "North"
+    },
+    {
+        "transaction_id": "T000006",
+        "customer_id": "C003",
+        "product": {
+            "id": "P02",
+            "name": "Mouse",
+            "category": "Accessories",
+            "price": 21.02
+        },
+        "quantity": 3,
+        "discount": 0.15,
+        "date": "2023-09-19 00:48:50",
+        "region": "West"
+    },
+    {
+        "transaction_id": "T000007",
+        "customer_id": "C043",
+        "product": {
+            "id": "P05",
+            "name": "Desk",
+            "category": "Furniture",
+            "price": 189.2
+        },
+        "quantity": 2,
+        "discount": 0.15,
+        "date": "2023-06-25 10:28:42",
+        "region": "East"
+    },
+    {
+        "transaction_id": "T000008",
+        "customer_id": "C058",
+        "product": {
+            "id": "P05",
+            "name": "Desk",
+            "category": "Furniture",
+            "price": 175.13
+        },
+        "quantity": 5,
+        "discount": 0.1,
+        "date": "2023-10-03 18:05:19",
+        "region": "South"
+    },
+    {
+        "transaction_id": "T000009",
+        "customer_id": "C030",
+        "product": {
+            "id": "P04",
+            "name": "Keyboard",
+            "category": "Accessories",
+            "price": 50.16
+        },
+        "quantity": 1,
+        "discount": 0.15,
+        "date": "2023-03-28 05:44:06",
+        "region": "North"
+    },
+    {
+        "transaction_id": "T000010",
+        "customer_id": "C034",
+        "product": {
+            "id": "P01",
+            "name": "Laptop",
+            "category": "Electronics",
+            "price": 1094.5
+        },
+        "quantity": 5,
+        "discount": null,
+        "date": "2023-05-16 02:26:41",
+        "region": "North"
+    },
+    {
+        "transaction_id": "T000011",
+        "customer_id": "C091",
+        "product": {
+            "id": "P02",
+            "name": "Mouse",
+            "category": "Accessories",
+            "price": 19.97
+        },
+        "quantity": 1,
+        "discount": 0.1,
+        "date": "2023-07-03 03:15:38",
+        "region": "North"
+    },
+    {
+        "transaction_id": "T000012",
+        "customer_id": "C056",
+        "product": {
+            "id": "P03",
+            "name": "Monitor",
+            "category": "Electronics",
+            "price": 302.12
+        },
+        "quantity": 1,
+        "discount": 0.05,
+        "date": "2023-05-19 03:52:09",
+        "region": "East"
+    },
+    {
+        "transaction_id": "T000013",
+        "customer_id": "C024",
+        "product": {
+            "id": "P02",
+            "name": "Mouse",
+            "category": "Accessories",
+            "price": 19.25
+        },
+        "quantity": 3,
+        "discount": 0.15,
+        "date": "2023-05-12 17:09:58",
+        "region": "South"
+    },
+    {
+        "transaction_id": "T000014",
+        "customer_id": "C042",
+        "product": {
+            "id": "P03",
+            "name": "Monitor",
+            "category": "Electronics",
+            "price": 276.28
+        },
+        "quantity": 4,
+        "discount": 0,
+        "date": "2023-05-04 21:47:40",
+        "region": "East"
+    },
+    {
+        "transaction_id": "T000015",
+        "customer_id": "C025",
+        "product": {
+            "id": "P02",
+            "name": "Mouse",
+            "category": "Accessories",
+            "price": 21.65
+        },
+        "quantity": 1,
+        "discount": 0.1,
+        "date": "2023-03-05 15:35:15",
+        "region": "South"
+    }
+]

@@ -195,3 +195,9 @@ logs/sales_etl_logs.log
 - psycopg2
 - JSON-based ingestion
 - File-based data lake simulation
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 760b354 (Add ETL pipeline README, requirements, data & logs folders)
