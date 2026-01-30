@@ -34,4 +34,13 @@ etl_pipeline/
 logs/
 ├── sales_etl_logs.log       # Pipeline execution logs
 ├── invalid_sales.json       # Invalid records with DQ errors
-git status
+
+## 🗄️ Database Layers
+
+| Layer  | Table | Description |
+|------|------|-------------|
+| Raw | raw.sales_raw | Append-only raw ingested data |
+| Silver | silver.sales | Cleaned, deduplicated transactional data |
+| Silver | silver.etl_metadata | Stores incremental load watermark |
+
+🔄 ETL Flow
