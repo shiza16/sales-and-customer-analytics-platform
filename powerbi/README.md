@@ -1,9 +1,13 @@
 # Revenue & Customer Insights – Part 4: Power BI Dashboard
 
+
 ### Objective
 The purpose of this dashboard is to visualize key insights from both the **Sales** and **Customer** datasets. It provides a comprehensive view of revenue trends, customer behavior, and product performance to support business decision-making.
 
----
+### Data Source
+
+This dashboard is built on **Gold Layer tables** (``products``, ``customers`` and ``transactions``), which are aggregated, cleaned, and validated in the ETL pipeline. Using Gold Layer ensures that metrics like Total Sales, Average Sale per Transaction, and Loyalty Points are **accurate, consistent, and ready for reporting**.
+
 
 ### Dashboard Overview
 
@@ -20,7 +24,7 @@ The purpose of this dashboard is to visualize key insights from both the **Sales
 
 **Screenshot Preview:**
 
-![Dashboard Screenshot](!(image.png))
+![Dashboard Screenshot](dashboard_image.png)
 
 ---
 
@@ -30,28 +34,39 @@ The following DAX measures were created to calculate key metrics:
 
 1. **Total Sales**
 ```
-Total Sales = SUM(Sales[Amount])
+Total Sales = SUM('gold transactions'[total_value])
 ```
 
 2. **Average Sale per Transaction**
 ```
-Avg Sale per Transaction = AVERAGE(Sales[Amount])
+Avg Sale per Transaction = AVERAGE('gold transactions'[total_value])
+
 ```
 
 3. **Total Loyalty Points**
 ```
-Total Loyalty Points = SUM(Customer[LoyaltyPoints])
+Total Loyalty Points = SUM('gold customers'[loyalty_points])
 ```
 
 4. **High-Value Transactions (>1000)**
 ```
-High-Value Transactions = COUNTROWS(FILTER(Sales, Sales[Amount] > 1000))
+High Value Transactions = CALCULATE( COUNT('gold transactions'[transaction_id]), 'gold transactions'[total_value] > 1000 )
 ```
 
 5. **Sales YTD**
 
 ```
-Sales YTD = TOTALYTD(SUM(Sales[Amount]), Sales[Date])
+Sales YTD = TOTALYTD( [Total Sales], 'Date'[Date] )
+```
+
+6. **High Value Sales**
+```
+High Value Sales = 
+CALCULATE (
+    [Total Sales],
+    'gold transactions'[total_value]> 1000
+)
+
 ```
 
 ## Insights from the Dashboard
