@@ -61,7 +61,6 @@ Time-series column
 CREATE INDEX idx_transactions_transaction_date
 ON gold.transactions (transaction_datetime);
 
-
 -- Index 2 — Transactions by region
 CREATE INDEX idx_transactions_region
 ON gold.transactions (region);
