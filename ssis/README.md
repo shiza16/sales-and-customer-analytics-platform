@@ -1,31 +1,60 @@
-# SSIS Pipeline – Customer Data ETL
+# SSIS Pipeline – Customer Data Processing (JSON Source)
 
 ---
+
+## Overview
+
+This repository contains an **enterprise-grade SSIS ETL pipeline** designed to ingest (`customer_data.json`) from a semi-structured JSON source, apply validation and transformations, load it into PostgreSQL using a **Raw → Silver layered architecture**, and capture invalid records into an ``invalid_customers.csv`` for audit and troubleshooting.
+
+The pipeline is **restartable, parameterized, idempotent, and production-ready**, following modern data engineering best practices.
+
+This SSIS implementation complements a Python-based sales ETL pipeline and demonstrates strong proficiency in **SSIS Control Flow orchestration, Data Flow transformations, error handling, checkpoint-based recovery, and layered data architecture.**
 
 ## Objective
 
-The objective of this SSIS package is to ingest customer JSON data (`customer_data.json`), apply necessary transformations and validations, load it into PostgreSQL using a **Raw → Silver layered architecture**, and capture invalid records into an ``invalid_customers.csv`` error log for auditing for audit and troubleshooting purposes.
+The primary objectives of this SSIS pipeline are to:
 
-The package is designed to be **restartable**, **configurable**, and **production-ready**, following ETL best practices.
+- Ingest customer data from a JSON file (customer_data.json)
+- Validate and standardize incoming records
+- Load valid records into a relational database
+- Capture and persist invalid records for audit and replay
+- Ensure restartability and fault tolerance using SSIS checkpoints
+- Support multi-environment deployment (DEV / UAT / PROD) via parameterization
 
----
 
 ## High-Level Design
 
-The SSIS solution follows a classic **ETL pattern**:
+The pipeline follows a **Raw → Silver layered architecture**, consistent with modern data platform design principles.
 
-![SSIS Architecture Screenshot](ssis_architecture.png)
+#### Architecture Flow
+
+![SSIS Architecture Screenshot](screenshots/ssis_architecture.png)
 
 
-## SSIS Package Design
+Invalid records are redirected to a dedicated error output for full traceability.
 
-**Package File**: ```package.dtsx```
+This design ensures:
 
-**Key Features**:
+- Clean separation between ingestion and consumption layers
+- Data lineage and auditability
+- Safe reprocessing and recovery
+- Scalable downstream consumption
 
-**Source**: JSON file ``customer_data.json`` containing customer records.
+## SSIS Package Overview
 
-**Destination**: PostgreSQL Server table Customers (normalized and validated).
+| Attribute        | Value                     |
+|-----------------|---------------------------|
+| Package Name     | package.dtsx              |
+| Source Type      | JSON File                 |
+| Target Database  | PostgreSQL                |
+| Raw Table        | raw.customers_raw         |
+| Silver Table     | silver.customers          |
+| Error Output     | invalid_customers.csv     |
+
+**Notes:**  
+The package is designed to be **configurable**, **idempotent**, and **environment-agnostic**.
+
+The pipeline performs ETL steps:
 
 ### Extract
 - Read customer data from a JSON file  
@@ -49,39 +78,57 @@ The SSIS solution follows a classic **ETL pattern**:
 
 ## Control Flow Design
 
-![Control Flow Design](control_flow.png)
+![Control Flow Design](screenshots/control_flow.png)
 
 ### Control Flow Components
 
-The SSIS package contains the following Control Flow elements:
+The Control Flow orchestrates the end-to-end execution of the pipeline and enforces execution order, fault tolerance, and restartability.
 
-#### Data Flow Task – Load Customer Data
-- Main task responsible for extracting, transforming, and loading customer data  
+#### Key Control Flow Components
 
-#### SQL Script Task – Customer UPSERT
+#### 1. Data Flow Task – Load Customer Data
+
+- Reads customer records from the JSON source
+- Applies data transformations and validation logic
+- Loads valid records into the raw layer
+- Redirects invalid records to an error output file
+
+#### 2. SQL Script Task – Customer UPSERT
 
 A SQL Script Task is used in the Control Flow to execute an **UPSERT statement for customer data**, ensuring existing customers are updated and new customers are inserted without duplication.  
 The task loads validated customer records from the ``raw.customers_raw`` table into the ``silver.Customers`` table, keeping customer data consistent and up to date.
+
+This logic guarantees **idempotent and incremental processing**.
 
 #### Assumptions
 - Input JSON schema remains consistent
 - Customer ID uniquely identifies a customer
 
 
-#### Checkpoint Configuration
-- Enables package restartability in case of failure  
-- Ensures previously completed tasks are not re-executed  
+#### 3. Checkpoint Configuration
+- SSIS checkpointing is enabled at the package level
+- Allows the package to resume from the last successfully completed task
+- Prevents reprocessing of completed steps after failures
 
----
+#### 4. Move File to Processed Folder
+
+- After successful loading into the Silver layer:
+  - ``customer_data.json`` is moved from the source folder to a ``processed`` folder
+
+- This step ensures:
+  - File-level idempotency
+  - No accidental reprocessing of the same input file
 
 ## Data Flow Design
 
-![Data Flow Design](data_flow.png)
+The Data Flow Task is responsible for extraction, transformation, validation, and routing.
+
+![Data Flow Design](screenshots/data_flow.png)
 
 
 ### 1. JSON Source
 
-- Reads input from `customer_data.json`  
+- Reads input data from `customer_data.json`  
 - JSON path and file location are parameterized  
 - Supports schema inference for structured parsing  
 
@@ -97,16 +144,22 @@ The task loads validated customer records from the ``raw.customers_raw`` table i
 
 ### 2. Derived Column Transformation
 
-Used to:
-- Standardize text fields (e.g., trimming whitespace)
-- Convert data types
-- Add audit fields
+Used to standardize and enrich incoming data before validation.
+
+#### Key Transformations:
+
+- Trim whitespace from text fields
+- Normalize email addresses to lowercase
+- Convert data types where required
+- Create derived error-tracking columns for invalid records
+
+Add audit column:
 
 **Examples:**
 - Lowercase `email`
-- Add `insert_date = GETDATE()`
+- Add ``insert_date = GETDATE()``
 
----
+This step ensures consistent formatting and supports downstream auditability.
 
 ### 3. Conditional Split
 
@@ -114,29 +167,40 @@ Applies data quality rules to separate valid and invalid records.
 
 **Valid Records Criteria (example):**
 - `customer_id IS NOT NULL`
+- Additional rules can be easily extended:
+  - Email format validation
+  - Loyalty points range checks
+  - Region code validation
 
 **Outputs:**
-- Valid Rows → SQL **Customers** table  
+- Valid Rows → SQL Destination (``raw.customers_raw``) 
 - Invalid Rows → Error Logging flow  
 
----
+Invalid data is never silently dropped and is fully traceable.
 
 ### 4. ODBC DB Destination – Customers Table
 
 - Loads validated records into the **raw.customers_raw** table  
+- Serves as a persistent landing layer
+- Enables:
+  - Reprocessing
+  - Auditing
+  - Troubleshooting
 
 ---
 
 ### 5. Error Handling & Logging
 
-Invalid records are redirected to:
+- File: invalid_customers.csv
+- Captures:
+  - Full rejected row values
+  - Data quality failure indicators
 
-#### Flat File Error Log
-- Useful for debugging and replay scenarios  
+This approach ensures:
 
-This ensures:
-- No data loss  
-- Full traceability of rejected records  
+- Zero data loss
+- Full transparency
+- Easy debugging and replay
 
 ---
 
@@ -146,42 +210,58 @@ The package uses SSIS **Parameters** and **Variables** for flexibility and envir
 
 ### Parameters
 - `p_SourceFilePath` – JSON file location  
-- `p_ConnectionString` – Database connection  
+- `p_ConnectionString` – Target database connection string  
 
 ### Variables
-- `JSONfilePath` - JSON file location
+- `JSONfilePath` - Runtime source file location
+- `DestJSONfilePath` - Destination path after processing
 
-This allows easy deployment across **DEV / UAT / PROD** without package changes.
+This design allows seamless deployment across environments without modifying the package.
 
 ---
 
 ## Checkpoint & Restartability
 
-Checkpointing is enabled to support fault tolerance.
+Checkpointing is enabled to support fault tolerance and reliablity.
 
 **Behavior:**
-- If the package fails mid-execution, it resumes from the last successful task  
-- Prevents reprocessing of already loaded data  
 
-This is critical for:
-- Large files  
-- Scheduled or unattended executions  
+If execution fails mid-run:
+- The package resumes from the last completed task
+- Previously processed steps are not re-executed
+
+This is particularly useful for:
+
+- Large files
+- Scheduled or automated executions
+- Production-grade reliability requirements 
 
 ---
 
 ## Data Validation Strategy
 
-- Mandatory field checks using **Conditional Split**  
-- Type casting and null handling using **Derived Columns**  
-- Invalid records are never discarded silently  
+- Mandatory field checks via Conditional Split
+- Data standardization using Derived Column
+- Explicit separation of valid and invalid records
+- Persistent audit trail for rejected data
 
----
+This strategy ensures **high data quality without sacrificing availability**.
+
 
 ## Best Practices and Performance Considerations
 
-- **Fast Load** enabled on SQL destinations  
-- The UPSERT logic ensures idempotent loads, allowing safe re-runs without data duplication.
-- Modular design allows:
-  - Additional transformations
-  - Parallel Data Flow Tasks
-- Parameterized file paths support batch ingestion  
+- Fast Load enabled on database destinations
+- Minimal transformations inside the Data Flow
+- SQL-based UPSERT logic for efficiency
+- Modular and extensible design
+- Parameterized paths and connections
+- Clear separation of responsibilities across layers 
+
+## Outcome
+
+This SSIS pipeline demonstrates:
+- Strong control and data flow design
+- Robust error handling and auditability
+- Restartable, fault-tolerant execution
+- Clean separation of concerns
+- Enterprise-ready ETL engineering practices
