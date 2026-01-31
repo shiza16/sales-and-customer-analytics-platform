@@ -71,7 +71,7 @@ The generated output is written to the **Raw layer** as JSON files.
 
 The pipeline follows a **Raw → Silver layered architecture**, a common pattern in enterprise analytics platforms.
 
-![Python ETL Architecture](etl_pipeline/src/utils/python_etl_architecture.png)
+![Python ETL Architecture](src/utils/python_etl_architecture.png)
 
 
 
@@ -91,6 +91,8 @@ The pipeline follows a **Raw → Silver layered architecture**, a common pattern
 
 **Source:**
 - JSON files located in ``data/raw/``
+
+``sales_etl_pipeline.ipynb`` serves as the orchestration layer, calling modular ETL functions implemented in ``sales_etl_functions.py``.
 
 **Steps:**
 - Check if file exists (non-fatal if missing)

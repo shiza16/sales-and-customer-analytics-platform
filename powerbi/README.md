@@ -13,7 +13,7 @@ This dashboard is built on **Gold Layer tables** (``gold.products``, ``gold.cust
 
 **Dashboard Name:** Revenue & Customer Insights Dashboard
 
-![Dashboard Screenshot](powerbi/powerbi_dashboard.png)
+![Dashboard Screenshot](powerbi_dashboard.png)
 
 **Key Features:**
 - Interactive filters for ``Region``, ``Product Name``, ``Product``, ``Category``, and ``Period``.
