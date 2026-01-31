@@ -24,7 +24,7 @@ This dashboard is built on **Gold Layer tables** (``products``, ``customers`` an
 
 **Screenshot Preview:**
 
-![Dashboard Screenshot](dashboard_image.png)
+![Dashboard Screenshot](image.png)
 
 ---
 

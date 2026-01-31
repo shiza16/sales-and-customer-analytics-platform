@@ -14,8 +14,8 @@
   DTS:ObjectName="Package"
   DTS:PackageType="5"
   DTS:SaveCheckpoints="True"
-  DTS:VersionBuild="55"
-  DTS:VersionGUID="{329CF724-CB91-446D-9319-ED4C734182E1}">
+  DTS:VersionBuild="63"
+  DTS:VersionGUID="{8653A161-0D50-445B-94E1-857D202C57F9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -74,7 +74,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="customer_id"
-              DTS:DTSID="{5CE03473-9F4A-4A51-8AE4-6994FD05407B}"
+              DTS:DTSID="{0E7B5B21-7469-4F01-B262-E67C8F0D4118}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -83,7 +83,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="customer_name"
-              DTS:DTSID="{142C386E-B59B-4338-9055-FEF4A96241A1}"
+              DTS:DTSID="{530841F3-5209-42CE-AFDD-FC2DCBA165FD}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -92,7 +92,7 @@
               DTS:DataType="130"
               DTS:TextQualified="True"
               DTS:ObjectName="email"
-              DTS:DTSID="{8F01FE2B-EC73-474C-BB34-7CEDDEC25637}"
+              DTS:DTSID="{16CA7067-1EDD-4948-BF91-2A731B6FA8CF}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -101,7 +101,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="region"
-              DTS:DTSID="{E7667C6F-A195-44C4-BC0F-49730B2A8D8F}"
+              DTS:DTSID="{F744CBF0-EFD5-4967-9645-2F89A970E371}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -110,7 +110,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="loyalty_points"
-              DTS:DTSID="{8A00EAC1-FE9B-4A96-AE70-FBD62D96E155}"
+              DTS:DTSID="{6CF72EE9-08A6-476C-8359-2E468949374C}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -118,16 +118,43 @@
               DTS:DataType="135"
               DTS:TextQualified="True"
               DTS:ObjectName="insert_date"
-              DTS:DTSID="{07774BF9-1376-4E5F-A680-51A5EAAD4214}"
+              DTS:DTSID="{ABDA71C7-7794-4BF1-8F43-A74854E20458}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
-              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:ColumnDelimiter="_x002C_"
               DTS:MaximumWidth="255"
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="join_date"
-              DTS:DTSID="{E69C3416-275F-4C14-93B0-1560CC0C8726}"
+              DTS:DTSID="{7AFFF2FC-6E3B-4FF7-9D29-47EA10108B88}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="19"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="err_customer_id"
+              DTS:DTSID="{72B46647-C6AE-429F-9430-AEC2345445AD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="17"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="err_email"
+              DTS:DTSID="{85A128CE-27BE-466D-A5C4-ED01A9FE0E32}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="25"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="err_customer_name"
+              DTS:DTSID="{D3D83671-EDC2-4CEB-97E1-C1D4D946249C}"
               DTS:CreationName="" />
           </DTS:FlatFileColumns>
         </DTS:ConnectionManager>
@@ -165,7 +192,7 @@
       DTS:ObjectName="JsonFilePath">
       <DTS:Property
         DTS:DataType="8"
-        DTS:Name="ParameterValue">C:\Users\shiza\sales-and-customer-analytics-platform\data\raw\customer_data.json</DTS:Property>
+        DTS:Name="ParameterValue">C:\ssis\customer_data.json</DTS:Property>
     </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables>
@@ -189,12 +216,21 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{3361DBBC-F0AE-46CD-9E21-CF5271C1BA60}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DestJsonFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\ssis\data\processed\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{3E9D1C34-6CA1-49A7-8D01-EF242656EEBC}"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="JsonFilePath">
       <DTS:VariableValue
-        DTS:DataType="8">C:\Users\shiza\sales-and-customer-analytics-platform\data\raw\customer_data.json</DTS:VariableValue>
+        DTS:DataType="8">C:\ssis\data\raw\customer_data.json</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -266,34 +302,6 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Outputs[ValidRows]"
-                  description="Output 1 of the Conditional Split Transformation"
-                  errorOrTruncationOperation="Computation"
-                  errorRowDisposition="FailComponent"
-                  exclusionGroup="1"
-                  name="ValidRows"
-                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Inputs[Conditional Split Input]"
-                  truncationRowDisposition="FailComponent">
-                  <properties>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">![ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_id]}) &amp;&amp; ![ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]})</property>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Specifies the friendly version of the expression. This expression version uses column names."
-                      expressionType="Notify"
-                      name="FriendlyExpression">!ISNULL(customer_id) &amp;&amp; !ISNULL(email)</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
-                      name="EvaluationOrder">0</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
                   refId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Outputs[InvalidRows]"
                   description="Output 2 of the Conditional Split Transformation"
                   errorOrTruncationOperation="Computation"
@@ -307,13 +315,41 @@
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">[LEN](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]}) &gt; 50 || [LEN](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_name]}) &gt; 50</property>
+                      name="Expression">[ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_id]}) || [LEN](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]}) &gt; 50 || [LEN](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_name]}) &gt; 50</property>
                     <property
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the friendly version of the expression. This expression version uses column names."
                       expressionType="Notify"
-                      name="FriendlyExpression">LEN(email) &gt; 50 || LEN(customer_name) &gt; 50</property>
+                      name="FriendlyExpression">ISNULL(customer_id) || LEN(email) &gt; 50 || LEN(customer_name) &gt; 50</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Outputs[ValidRows]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="ValidRows"
+                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">![ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_id]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL(customer_id)</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
@@ -437,96 +473,140 @@
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column"
+              refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns"
               componentClassID="Microsoft.DerivedColumn"
               contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-              name="Derived Column"
+              name="Derived Errored Columns"
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Inputs[Derived Column Input]"
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Inputs[Derived Column Input].Columns[email]"
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input].Columns[customer_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="customer_id"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input].Columns[customer_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1500"
+                      cachedName="customer_name"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_name]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input].Columns[email]"
                       cachedDataType="wstr"
                       cachedLength="1500"
                       cachedName="email"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">[LOWER](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]})</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">LOWER(email)</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Inputs[Derived Column Input].Columns[insert_date]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="insert_date"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[insert_date]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">[GETDATE]()</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">GETDATE()</property>
-                      </properties>
-                    </inputColumn>
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Output]"
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output]"
                   description="Default Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   name="Derived Column Output"
-                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_customer_id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="19"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_customer_id]"
+                      name="err_customer_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_id]}) ? "customer_id is NULL" : ""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(customer_id) ? "customer_id is NULL" : ""</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="17"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_email]"
+                      name="err_email"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">![ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]}) &amp;&amp; [LEN](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]}) &gt; 50 ? "email length &gt; 50" : ""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">!ISNULL(email) &amp;&amp; LEN(email) &gt; 50 ? "email length &gt; 50" : ""</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_customer_name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="25"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_customer_name]"
+                      name="err_customer_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">![ISNULL](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_name]}) &amp;&amp; [LEN](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[customer_name]}) &gt; 50 ? "customer_name length &gt; 50" : ""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">!ISNULL(customer_name) &amp;&amp; LEN(customer_name) &gt; 50 ? "customer_name length &gt; 50" : ""</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Error Output]"
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Error Output]"
                   description="Error Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Derived Column Error Output"
-                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -622,6 +702,27 @@
                       cachedName="insert_date"
                       externalMetadataColumnId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[insert_date]"
                       lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[insert_date]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].Columns[err_customer_id]"
+                      cachedDataType="wstr"
+                      cachedLength="19"
+                      cachedName="err_customer_id"
+                      externalMetadataColumnId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[err_customer_id]"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_customer_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].Columns[err_email]"
+                      cachedDataType="wstr"
+                      cachedLength="17"
+                      cachedName="err_email"
+                      externalMetadataColumnId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[err_email]"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_email]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].Columns[err_customer_name]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="err_customer_name"
+                      externalMetadataColumnId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[err_customer_name]"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output].Columns[err_customer_name]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -664,6 +765,21 @@
                       refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[insert_date]"
                       dataType="dbTimeStamp"
                       name="insert_date" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[err_customer_id]"
+                      dataType="wstr"
+                      length="19"
+                      name="err_customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[err_email]"
+                      dataType="wstr"
+                      length="17"
+                      name="err_email" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[err_customer_name]"
+                      dataType="wstr"
+                      length="25"
+                      name="err_customer_name" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -2026,6 +2142,104 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
                 </output>
               </outputs>
             </component>
+            <component
+              refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Transform Columns"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Inputs[Derived Column Input].Columns[email]"
+                      cachedDataType="wstr"
+                      cachedLength="1500"
+                      cachedName="email"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LOWER](#{Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[email]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LOWER(email)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Inputs[Derived Column Input].Columns[insert_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="insert_date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer].Columns[insert_date]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
           </components>
           <paths>
             <path
@@ -2037,15 +2251,20 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
               refId="Package\Data Flow Task - Load Customers - Raw DB.Paths[Derived Column Output]"
               endId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Inputs[Conditional Split Input]"
               name="Derived Column Output"
-              startId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Outputs[Derived Column Output]" />
+              startId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Data Flow Task - Load Customers - Raw DB.Paths[Derived Column Output1]"
+              endId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Outputs[Derived Column Output]" />
             <path
               refId="Package\Data Flow Task - Load Customers - Raw DB.Paths[InvalidRows]"
-              endId="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination.Inputs[Flat File Destination Input]"
+              endId="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns.Inputs[Derived Column Input]"
               name="InvalidRows"
               startId="Package\Data Flow Task - Load Customers - Raw DB\Conditional Split.Outputs[InvalidRows]" />
             <path
               refId="Package\Data Flow Task - Load Customers - Raw DB.Paths[MyOutputBuffer]"
-              endId="Package\Data Flow Task - Load Customers - Raw DB\Derived Column.Inputs[Derived Column Input]"
+              endId="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns.Inputs[Derived Column Input]"
               name="MyOutputBuffer"
               startId="Package\Data Flow Task - Load Customers - Raw DB\Script Component.Outputs[MyOutputBuffer]" />
             <path
@@ -2074,6 +2293,25 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{21FFBB58-B69F-44BF-9911-B345E3EFA354}"
           SQLTask:SqlStatementSource="INSERT INTO silver.customers (&#xA;    customer_id,&#xA;    customer_name,&#xA;    email,&#xA;    region,&#xA;    join_date,&#xA;    loyalty_points,&#xA;    insert_date,&#xA;    update_date&#xA;)&#xA;WITH cleaned AS (&#xA;    SELECT&#xA;        /* 1. Fix duplicated customer_id like C082C082 → C082 */&#xA;        SUBSTRING(TRIM(customer_id) FROM '(C[0-9]+)') AS customer_id,&#xA;&#xA;        /* 2. Clean customer_name:&#xA;              - remove trailing numbers&#xA;              - remove special chars&#xA;              - empty / long → NA */&#xA;        CASE&#xA;            WHEN customer_name IS NULL OR TRIM(customer_name) = '' THEN 'NA'&#xA;            WHEN customer_name ~ '[!@#$%^&amp;*()]' THEN 'NA'&#xA;            WHEN LENGTH(customer_name) &gt; 100 THEN 'NA'&#xA;            ELSE TRIM(&#xA;                REGEXP_REPLACE(customer_name, '\s*\d+$', '')&#xA;            )&#xA;        END AS customer_name,&#xA;&#xA;        /* 3. Clean email */&#xA;        CASE&#xA;            WHEN email IS NULL THEN NULL&#xA;            WHEN LENGTH(email) &gt; 150 THEN NULL&#xA;            WHEN email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'&#xA;                THEN LOWER(email)&#xA;            ELSE NULL&#xA;        END AS email,&#xA;&#xA;        /* 4. Clean region → NA */&#xA;        CASE&#xA;            WHEN region IS NULL OR TRIM(region) = '' THEN 'NA'&#xA;            WHEN UPPER(TRIM(region)) = 'UNKNOWN' THEN 'NA'&#xA;            ELSE UPPER(TRIM(region))&#xA;        END AS region,&#xA;&#xA;        /* 5. Clean join_date */&#xA;        CASE&#xA;            WHEN join_date ~ '^\d{4}-\d{2}-\d{2}$'&#xA;                THEN join_date::date&#xA;            WHEN join_date ~ '^\d{4}/\d{2}/\d{2}$'&#xA;                THEN TO_DATE(join_date, 'YYYY/MM/DD')&#xA;            WHEN join_date ~ '^\d{4}-\d{2}-\d{2}T'&#xA;                THEN LEFT(join_date, 10)::date&#xA;            ELSE NULL&#xA;        END AS join_date,&#xA;&#xA;        /* 6. Clean loyalty_points */&#xA;        CASE&#xA;&#x9;&#x9;    WHEN loyalty_points IS NULL OR TRIM(loyalty_points) = '' THEN 0&#xA;&#x9;&#x9;    WHEN NULLIF(loyalty_points, '')::int &lt; 0 THEN 0&#xA;&#x9;&#x9;    WHEN NULLIF(loyalty_points, '')::int &gt; 1000000 THEN 1000000&#xA;&#x9;&#x9;    ELSE NULLIF(loyalty_points, '')::int&#xA;&#x9;&#x9;END AS loyalty_points,&#xA;&#xA;        insert_date,&#xA;&#xA;        ROW_NUMBER() OVER (&#xA;            PARTITION BY SUBSTRING(TRIM(customer_id) FROM '(C[0-9]+)')&#xA;            ORDER BY insert_date DESC&#xA;        ) AS rn&#xA;&#xA;    FROM raw.customers_raw&#xA;    WHERE customer_id IS NOT NULL&#xA;      AND TRIM(customer_id) &lt;&gt; ''&#xA;)&#xA;&#xA;SELECT&#xA;    customer_id,&#xA;    customer_name,&#xA;    email,&#xA;    region,&#xA;    join_date,&#xA;    loyalty_points,&#xA;    insert_date,&#xA;    NOW() AS update_date&#xA;FROM cleaned&#xA;WHERE rn = 1 -- deduplicate, keep latest record&#xA;&#xA;ON CONFLICT (customer_id)&#xA;DO UPDATE SET&#xA;    customer_name   = EXCLUDED.customer_name,&#xA;    email           = EXCLUDED.email,&#xA;    region          = EXCLUDED.region,&#xA;    join_date       = EXCLUDED.join_date,&#xA;    loyalty_points  = EXCLUDED.loyalty_points,&#xA;    update_date     = NOW();" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Move file to processed folder"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{D00FC939-5C17-4A6C-BE2E-F5EFAEA5DA0B}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Move file to processed folder"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="User::JsonFilePath"
+          TaskIsSourceVariable="True"
+          TaskDestinationPath="User::DestJsonFilePath"
+          TaskIsDestinationVariable="True" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -2780,6 +3018,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\Incremental Customer Load - Silver DB" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1AFAF31D-D374-49F4-BB12-7DCE46BD22B6}"
+      DTS:From="Package\Incremental Customer Load - Silver DB"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Move file to processed folder" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -2861,6 +3107,44 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="211.2,41.6"
+          Id="Package\Move file to processed folder"
+          TopLeft="512.499971998236,305.066664545271" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="587.933308291105,261.733331802554">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30.1666637071307,43.3333327427176"
+              Start="0,0"
+              End="30.1666637071307,35.8333327427176">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.6666663713588" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.6666663713588"
+                    Point2="0,21.6666663713588"
+                    Point3="4,21.6666663713588" />
+                  <mssgle:LineSegment
+                    End="26.1666637071307,21.6666663713588" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.1666637071307,21.6666663713588"
+                    Point2="30.1666637071307,21.6666663713588"
+                    Point3="30.1666637071307,25.6666663713588" />
+                  <mssgle:LineSegment
+                    End="30.1666637071307,35.8333327427176" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -2874,12 +3158,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           Id="Package\Data Flow Task - Load Customers - Raw DB\Script Component"
           TopLeft="118.999998226762,35.9999994635582" />
         <NodeLayout
-          Size="152.8,41.6"
-          Id="Package\Data Flow Task - Load Customers - Raw DB\Derived Column"
+          Size="169.6,41.6"
+          Id="Package\Data Flow Task - Load Customers - Raw DB\Transform Columns"
           TopLeft="119.999998211861,131.999998033047" />
         <EdgeLayout
           Id="Package\Data Flow Task - Load Customers - Raw DB.Paths[MyOutputBuffer]"
-          TopLeft="198.099998219311,77.5999994635582">
+          TopLeft="202.299998219311,77.5999994635582">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2896,9 +3180,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-20.56447265625,18.6658195972443,41.1289453125,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
@@ -2907,7 +3189,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           TopLeft="122.999998167157,231.999996542931" />
         <EdgeLayout
           Id="Package\Data Flow Task - Load Customers - Raw DB.Paths[Derived Column Output]"
-          TopLeft="198.099998189509,173.599998033047">
+          TopLeft="202.299998189509,173.599998033047">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2924,39 +3206,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-20.56447265625,20.665819567442,41.1289453125,9.568359375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="170.4,41.6"
           Id="Package\Data Flow Task - Load Customers - Raw DB\Flat File Destination"
-          TopLeft="119.999998211861,313.999995321035" />
-        <EdgeLayout
-          Id="Package\Data Flow Task - Load Customers - Raw DB.Paths[InvalidRows]"
-          TopLeft="202.499998189509,273.599996542931">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40.3999987781048"
-              Start="0,0"
-              End="0,32.8999987781048">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.8999987781048" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-27.2641796875,11.5754876703024,54.528359375,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="412.999993845821,319.999995231629" />
         <NodeLayout
           Size="156,41.6"
           Id="Package\Data Flow Task - Load Customers - Raw DB\Data Conversion"
@@ -2981,7 +3237,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="10.165076046288,5,97.56984375,11.609375"
+              BoundingBox="35.599236202538,5,46.7015234375,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -3008,9 +3264,69 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="195.2,41.6"
+          Id="Package\Data Flow Task - Load Customers - Raw DB\Derived Errored Columns"
+          TopLeft="125.999998122454,314.999995306134" />
+        <EdgeLayout
+          Id="Package\Data Flow Task - Load Customers - Raw DB.Paths[InvalidRows]"
+          TopLeft="199.799998167157,273.599996542931">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="23.7999999552966,41.3999987632037"
+              Start="0,0"
+              End="23.7999999552966,33.8999987632037">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6999993816018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6999993816018"
+                    Point2="0,20.6999993816018"
+                    Point3="4,20.6999993816018" />
+                  <mssgle:LineSegment
+                    End="19.7999999552966,20.6999993816018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19.7999999552966,20.6999993816018"
+                    Point2="23.7999999552966,20.6999993816018"
+                    Point3="23.7999999552966,24.6999993816018" />
+                  <mssgle:LineSegment
+                    End="23.7999999552966,33.8999987632037" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="23.1855254736543,5,41.1289453125,9.568359375"
+              BoundingBox="-15.3641797098517,25.6999993816018,54.528359375,9.7490234375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task - Load Customers - Raw DB.Paths[Derived Column Output1]"
+          TopLeft="321.199998122454,338.299995268881">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="91.7999957233669,0"
+              Start="0,0"
+              End="84.2999957233669,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84.2999957233669,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

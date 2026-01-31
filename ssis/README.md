@@ -1,10 +1,10 @@
-# SSIS Pipeline – Customer Data Ingestion
+# SSIS Pipeline – Customer Data ETL
 
 ---
 
 ## Objective
 
-The objective of this SSIS package is to ingest customer JSON data (`customer_data.json`), apply necessary transformations and validations, load it into a PostgresSQL  **Customers** table, and capture any bad or invalid records into an **ErrorLog** for audit and troubleshooting purposes.
+The objective of this SSIS package is to ingest customer JSON data (`customer_data.json`), apply necessary transformations and validations, load it into PostgreSQL using a **Raw → Silver layered architecture**, and capture invalid records into an ``invalid_customers.csv`` error log for auditing for audit and troubleshooting purposes.
 
 The package is designed to be **restartable**, **configurable**, and **production-ready**, following ETL best practices.
 
@@ -16,6 +16,16 @@ The SSIS solution follows a classic **ETL pattern**:
 
 ![SSIS Architecture Screenshot](ssis_architecture.png)
 
+
+## SSIS Package Design
+
+**Package File**: ```package.dtsx```
+
+**Key Features**:
+
+**Source**: JSON file ``customer_data.json`` containing customer records.
+
+**Destination**: PostgreSQL Server table Customers (normalized and validated).
 
 ### Extract
 - Read customer data from a JSON file  
@@ -30,9 +40,16 @@ The SSIS solution follows a classic **ETL pattern**:
 - Insert clean records into the PostgreSQL  **Customers** table  
 - Redirect invalid records to an **invalid_customers** flat file  
 
+### Data Layers
+- ``raw.customers_raw`` – landing table for validated JSON records
+- ``silver.customers`` – cleansed and deduplicated customer data
+
+
 ---
 
 ## Control Flow Design
+
+![Control Flow Design](control_flow.png)
 
 ### Control Flow Components
 
@@ -41,6 +58,16 @@ The SSIS package contains the following Control Flow elements:
 #### Data Flow Task – Load Customer Data
 - Main task responsible for extracting, transforming, and loading customer data  
 
+#### SQL Script Task – Customer UPSERT
+
+A SQL Script Task is used in the Control Flow to execute an **UPSERT statement for customer data**, ensuring existing customers are updated and new customers are inserted without duplication.  
+The task loads validated customer records from the ``raw.customers_raw`` table into the ``silver.Customers`` table, keeping customer data consistent and up to date.
+
+#### Assumptions
+- Input JSON schema remains consistent
+- Customer ID uniquely identifies a customer
+
+
 #### Checkpoint Configuration
 - Enables package restartability in case of failure  
 - Ensures previously completed tasks are not re-executed  
@@ -48,6 +75,9 @@ The SSIS package contains the following Control Flow elements:
 ---
 
 ## Data Flow Design
+
+![Data Flow Design](data_flow.png)
+
 
 ### 1. JSON Source
 
@@ -147,13 +177,11 @@ This is critical for:
 
 ---
 
-## Scaling & Performance Considerations
+## Best Practices and Performance Considerations
 
 - **Fast Load** enabled on SQL destinations  
+- The UPSERT logic ensures idempotent loads, allowing safe re-runs without data duplication.
 - Modular design allows:
   - Additional transformations
   - Parallel Data Flow Tasks
 - Parameterized file paths support batch ingestion  
-
----
-

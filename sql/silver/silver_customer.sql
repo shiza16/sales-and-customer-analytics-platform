@@ -55,11 +55,12 @@ WITH cleaned AS (
 
         /* 6. Clean loyalty_points */
         CASE
-            WHEN loyalty_points IS NULL THEN 0
-            WHEN loyalty_points::int < 0 THEN 0
-            WHEN loyalty_points::int > 1000000 THEN 1000000
-            ELSE loyalty_points::int
+            WHEN loyalty_points IS NULL OR TRIM(loyalty_points) = '' THEN 0
+            WHEN NULLIF(loyalty_points, '')::int < 0 THEN 0
+            WHEN NULLIF(loyalty_points, '')::int > 1000000 THEN 1000000
+            ELSE NULLIF(loyalty_points, '')::int
         END AS loyalty_points,
+
 
         insert_date,
 

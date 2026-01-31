@@ -91,10 +91,10 @@ ON gold.transactions (region, transaction_datetime);
 
 ## ETL Layers
 
-Raw Layer      | Silver Layer      |  Gold Layer
------------      -----------          ---------
-raw.sales_raw  |  silver.sales       |  gold.aggregates
-JSON data      |  Cleaned & Validated |   Aggregated/Analytics-ready
+Raw Layer      | Silver Layer      |Gold Layer
+-----------    |  -----------    | ---------
+raw.sales_raw  |  silver.sales       |  gold.aggregates |
+JSON data      |  Cleaned & Validated |   Aggregated/Analytics-ready |
 
 
 - Raw layer keeps **original ingested data** for auditing and replay.

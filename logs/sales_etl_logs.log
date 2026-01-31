@@ -189,9 +189,9 @@
 2026-01-30 16:53:53,382 - INFO - Extracted 0 new RAW records since 2026-01-30 11:05:41.448872
 2026-01-30 16:53:53,408 - INFO - No new RAW data found. Pipeline finished.
 2026-01-30 17:04:45,135 - INFO - Database connection successful!
-2026-01-30 17:04:45,183 - INFO - Loaded 20 records from file C:\Users\afiniti\Downloads\MidLevel_DataEngineer_Assessment\data\raw\sales_data_scaled.json
+2026-01-30 17:04:45,183 - INFO - Loaded 20 records from file C:\Users\shiza\Downloads\MidLevel_DataEngineer_Assessment\data\raw\sales_data_scaled.json
 2026-01-30 17:04:45,288 - INFO - Successfully inserted 20 records into raw.sales_raw
-2026-01-30 17:04:45,294 - INFO - Moved file to processed folder: C:\Users\afiniti\Downloads\MidLevel_DataEngineer_Assessment\data\processed\sales_data_scaled.json
+2026-01-30 17:04:45,294 - INFO - Moved file to processed folder: C:\Users\shiza\Downloads\MidLevel_DataEngineer_Assessment\data\processed\sales_data_scaled.json
 2026-01-30 17:04:45,387 - INFO - Last processed insert_date: 2026-01-30 11:05:41.448872
 2026-01-30 17:04:45,399 - INFO - Extracted 20 new RAW records since 2026-01-30 11:05:41.448872
 2026-01-30 17:04:45,413 - INFO - Starting sales transformation
@@ -203,11 +203,11 @@
 2026-01-30 17:04:45,445 - INFO - Sales transformation completed in 0.03 seconds
 2026-01-30 17:04:45,546 - INFO - Loaded 16 records into silver.sales (UPSERT on transaction_id)
 2026-01-30 17:04:45,642 - INFO - Updated ETL metadata for sales_silver with last_insert_date = 2026-01-30 12:04:45.276624
-2026-01-30 17:04:45,656 - INFO - Saved 4 invalid records to C:\Users\afiniti\Downloads\MidLevel_DataEngineer_Assessment\Part1\logs\invalid_sales.json
+2026-01-30 17:04:45,656 - INFO - Saved 4 invalid records to C:\Users\shiza\Downloads\MidLevel_DataEngineer_Assessment\Part1\logs\invalid_sales.json
 2026-01-30 17:12:18,994 - INFO - Database connection successful!
-2026-01-30 17:12:19,067 - INFO - Loaded 105 records from file C:\Users\afiniti\Downloads\MidLevel_DataEngineer_Assessment\data\raw\sales_data_scaled.json
+2026-01-30 17:12:19,067 - INFO - Loaded 105 records from file C:\Users\shiza\Downloads\MidLevel_DataEngineer_Assessment\data\raw\sales_data_scaled.json
 2026-01-30 17:12:19,275 - INFO - Successfully inserted 105 records into raw.sales_raw
-2026-01-30 17:12:19,280 - INFO - Moved file to processed folder: C:\Users\afiniti\Downloads\MidLevel_DataEngineer_Assessment\data\processed\sales_data_scaled.json
+2026-01-30 17:12:19,280 - INFO - Moved file to processed folder: C:\Users\shiza\Downloads\MidLevel_DataEngineer_Assessment\data\processed\sales_data_scaled.json
 2026-01-30 17:12:19,381 - INFO - Last processed insert_date: 2026-01-30 12:04:45.276624
 2026-01-30 17:12:19,392 - INFO - Extracted 105 new RAW records since 2026-01-30 12:04:45.276624
 2026-01-30 17:12:19,408 - INFO - Starting sales transformation
@@ -218,11 +218,11 @@
 2026-01-30 17:12:19,448 - INFO - Sales transformation completed in 0.04 seconds
 2026-01-30 17:12:19,610 - INFO - Loaded 87 records into silver.sales (UPSERT on transaction_id)
 2026-01-30 17:12:19,719 - INFO - Updated ETL metadata for sales_silver with last_insert_date = 2026-01-30 12:12:19.223766
-2026-01-30 17:12:19,737 - INFO - Saved 18 invalid records to C:\Users\afiniti\Downloads\MidLevel_DataEngineer_Assessment\Part1\logs\invalid_sales.json
+2026-01-30 17:12:19,737 - INFO - Saved 18 invalid records to C:\Users\shiza\Downloads\MidLevel_DataEngineer_Assessment\Part1\logs\invalid_sales.json
 2026-01-30 18:20:22,608 - INFO - Database connection successful!
-2026-01-30 18:20:22,652 - INFO - Loaded 15 records from file c:\Users\afiniti\sales-and-customer-analytics-platform\data\raw\sales_data_scaled.json
+2026-01-30 18:20:22,652 - INFO - Loaded 15 records from file c:\Users\shiza\sales-and-customer-analytics-platform\data\raw\sales_data_scaled.json
 2026-01-30 18:20:22,771 - INFO - Successfully inserted 15 records into raw.sales_raw
-2026-01-30 18:20:22,776 - INFO - Moved file to processed folder: c:\Users\afiniti\sales-and-customer-analytics-platform\data\processed\sales_data_scaled.json
+2026-01-30 18:20:22,776 - INFO - Moved file to processed folder: c:\Users\shiza\sales-and-customer-analytics-platform\data\processed\sales_data_scaled.json
 2026-01-30 18:20:22,930 - INFO - Last processed insert_date: 2026-01-30 12:12:19.223766
 2026-01-30 18:20:22,939 - INFO - Extracted 15 new RAW records since 2026-01-30 12:12:19.223766
 2026-01-30 18:20:22,963 - INFO - Starting sales transformation
@@ -233,4 +233,15 @@
 2026-01-30 18:20:22,997 - INFO - Sales transformation completed in 0.03 seconds
 2026-01-30 18:20:23,105 - INFO - Loaded 14 records into silver.sales (UPSERT on transaction_id)
 2026-01-30 18:20:23,195 - INFO - Updated ETL metadata for sales_silver with last_insert_date = 2026-01-30 13:20:22.759356
-2026-01-30 18:20:23,206 - INFO - Saved 1 invalid records to c:\Users\afiniti\sales-and-customer-analytics-platform\logs\invalid_sales.json
+2026-01-30 18:20:23,206 - INFO - Saved 1 invalid records to c:\Users\shiza\sales-and-customer-analytics-platform\logs\invalid_sales.json
+
+
+
+
+
+
+
+
+
+
+
