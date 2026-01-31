@@ -229,7 +229,7 @@ Design a restartable, parameterized, production-ready SSIS pipeline to ingest cu
 
 ### High-Level Architecture
 
-![SSIS ETL Architecture Screenshot](ssis/ssis_architecture.png)
+![SSIS ETL Architecture Screenshot](ssis/screenshots/ssis_architecture.png)
 
 
 The SSIS pipeline follows a **Raw → Silver** architecture.
@@ -247,7 +247,7 @@ The SSIS pipeline follows a **Raw → Silver** architecture.
 
 ### Control Flow Design
 
-![Control Flow Screenshot](ssis/control_flow.png)
+![Control Flow Screenshot](ssis/screenshots/control_flow.png)
 
 1. **Data Flow Task**
  - Extracts JSON data
@@ -269,7 +269,7 @@ The SSIS pipeline follows a **Raw → Silver** architecture.
 
 ### Data Flow Design
 
-![Data Flow Screenshot](ssis/data_flow.png)
+![Data Flow Screenshot](ssis/screenshots/data_flow.png)
 
 - **JSON Source:** Parameterized file path
 - **Derived Column:**
