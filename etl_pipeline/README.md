@@ -181,8 +181,6 @@ After a successful Silver load:
 - Fully auditable with detailed error reasons
 
 
----
----
 
 ## Incremental Logic Summary
 
@@ -219,8 +217,6 @@ Log file:
 logs/sales_etl_logs.log
 ```
 
----
----
 
 ## Technology Stack
 

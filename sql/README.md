@@ -1,5 +1,5 @@
 
-# Sales & Customer Analytics Platform – Part 2: Database Design and Querying
+# Sales & Customer Analytics Platform – Database Design and Querying
 
 ## Overview
 
@@ -8,46 +8,89 @@ This part of the project focuses on designing a **normalized, efficient relation
 
 The architecture follows a **modern data engineering pattern** with **Raw → Silver → Gold** layers:
 
+![SQL DB Design](data_modelling.png)
+
 - **Raw Layer:** Stores ingested sales and customer data exactly as it arrives (JSON → ```raw.sales_raw```, ```raw.customers_raw```).
 - **Silver Layer:** Cleansed, validated, and transformed data suitable for analytical operations (```silver.sales```, ```silver.customers```).
 - **Gold Layer:** Aggregated and enriched data optimized for reporting and business intelligence queries.
 
 ---
 
-## Database Schema
+## Gold Layer Data Model
 
-**Tables**
+The Gold layer implements a **star-schema–like design** with one fact table and multiple dimension tables.
 
-**1. Customers**
 
-- ```customer_id``` (PK)
-- ```customer_name```
-- ```email```
-- ```region```
-- ```join_date```
-- ```loyalty_points```
+### 1. Customers Dimension
 
-**2. Products**
+**Table:** `gold.customers`
 
-- ```product_id``` (PK)
-- ```product_name```
-- ```category```
-- ```price```
+| Column        | Description                    |
+|---------------|--------------------------------|
+| customer_id (PK) | Unique customer identifier    |
+| customer_name | Full name                      |
+| email         | Email address                  |
+| region        | Customer region                |
+| join_date     | Onboarding date                |
+| loyalty_points| Accumulated loyalty points     |
+| insert_date   | Record creation timestamp      |
+| update_date   | Last update timestamp          |
 
-**3. Transactions**
+---
 
-- ```transaction_id``` (PK)
-- ```customer_id``` (FK → Customers.customer_id)
-- ```product_id``` (FK → Products.product_id)
-- ```quantity```
-- ```discount```
-- ```region```
-- ```price```
-- ```date```
-- ```transaction_datetime```
-- ```total_value``` (computed: price × quantity × (1 - discount))
+### 2. Products Dimension
 
---- 
+**Table:** `gold.products`
+
+| Column        | Description                  |
+|---------------|------------------------------|
+| product_id (PK)| Unique product identifier    |
+| product_name  | Product name                 |
+| category      | Product category             |
+| insert_date   | Record creation timestamp    |
+| update_date   | Last update timestamp        |
+
+---
+
+### 3. Transactions Fact Table
+
+**Table:** `gold.transactions`
+
+| Column              | Description                                     |
+|--------------------|-------------------------------------------------|
+| transaction_id (PK) | Unique transaction identifier                  |
+| customer_id (FK)    | References `gold.customers.customer_id`       |
+| product_id (FK)     | References `gold.products.product_id`         |
+| quantity            | Units sold                                     |
+| discount            | Discount percentage                            |
+| price               | Unit price                                     |
+| region              | Transaction region                             |
+| transaction_datetime| Transaction timestamp                           |
+| total_value         | Computed transaction value                     |
+| insert_date         | Record creation timestamp                      |
+| update_date         | Last update timestamp                           |
+
+**Computed Metric:**  
+```sql
+total_value = quantity * price * (1 - discount / 100)
+```
+
+### Silver → Gold Transformation Logic
+
+- Data is promoted from Silver to Gold using **idempotent UPSERT logic**.
+- Customers are merged from ``silver.customers`` into ``gold.customers``.
+- Products are derived and deduplicated from ``silver.sales``.
+- Transactions are enriched with computed ``total_value``.
+- **ON CONFLICT** handling ensures no duplicate primary keys.
+
+#### Benefits:
+
+- Safe re-runs
+- Slowly changing customer updates
+- Clean analytical datasets
+
+---
+
 ## Index Design and Performance Optimization
 
 Indexes were created based on query access patterns to improve filtering, grouping, and join performance.
@@ -55,28 +98,28 @@ Indexes were created based on query access patterns to improve filtering, groupi
 **Indexes Created**
 
 ```
--- Index 1 — Transactions by date (monthly trend)
-CREATE INDEX idx_transactions_transaction_date
+-- Transactions by date (monthly trend)
+CREATE INDEX idx_transactions_transaction_date 
 ON gold.transactions (transaction_datetime);
 
--- Index 2 — Transactions by region
-CREATE INDEX idx_transactions_region
+-- Transactions by region
+CREATE INDEX idx_transactions_region 
 ON gold.transactions (region);
 
--- Index 3 — Foreign key: customer_id
-CREATE INDEX idx_transactions_customer_id
+-- Foreign key: customer_id
+CREATE INDEX idx_transactions_customer_id 
 ON gold.transactions (customer_id);
 
--- Index 4 — Foreign key: product_id
-CREATE INDEX idx_transactions_product_id
+-- Foreign key: product_id
+CREATE INDEX idx_transactions_product_id 
 ON gold.transactions (product_id);
 
--- Index 5 — Product category (aggregation)
-CREATE INDEX idx_products_category
+-- Product category aggregation
+CREATE INDEX idx_products_category 
 ON gold.products (category);
 
--- Composite index for heavy analytics
-CREATE INDEX idx_transactions_region_date
+-- Composite index for region + date analytics
+CREATE INDEX idx_transactions_region_date 
 ON gold.transactions (region, transaction_datetime);
 
 ```
@@ -85,24 +128,11 @@ ON gold.transactions (region, transaction_datetime);
 
 - Foreign key indexes accelerate joins between fact and dimension tables.
 - Date and region indexes optimize time-series and regional aggregations.
+- Precomputed total_value reduces repetitive calculations in queries.
 
 
---
+------
 
-## ETL Layers
-
-Raw Layer      | Silver Layer      |Gold Layer
------------    |  -----------    | ---------
-raw.sales_raw  |  silver.sales       |  gold.aggregates |
-JSON data      |  Cleaned & Validated |   Aggregated/Analytics-ready |
-
-
-- Raw layer keeps **original ingested data** for auditing and replay.
-- Silver layer applies **DQ checks, transformations, and metadata watermarking**.
-- Gold layer stores **pre-computed aggregates** for reporting.
-
-
----
 ## Analytical SQL Queries
 
 The following queries demonstrate common business insights:
@@ -168,4 +198,14 @@ WHERE total_value > 1000;
 
 - Indexes on ``date``, ``region``, and ``category`` significantly improve aggregation and filter queries.
 - Normalization avoids data duplication while maintaining query efficiency.
+- Fact–dimension separation supports scalable analytics.
 - Using computed columns (like ``total_value``) can reduce repetitive calculations in analytical queries.
+
+## Outcome
+
+This database design provides:
+
+- Clean analytical schema
+- High query performance
+- Clear separation of ingestion, transformation, and consumption layers
+- A production-ready foundation for dashboards and reporting
