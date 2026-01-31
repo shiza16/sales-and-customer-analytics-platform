@@ -46,11 +46,9 @@ sales-and-customer-analytics-platform/
 │
 ├── ssis/
 │   ├── CustomerData.dtsx
-│   └── screenshots/
 │
 ├── powerbi/
 │   ├── Revenue_Customer_Insights.pbix
-│   └── screenshots/
 ├
 └── README.md 
 
@@ -124,7 +122,7 @@ Generated data is written to the **raw data layer** as JSON files.
 
 The Python pipeline follows a **Raw → Silver** layered architecture, commonly used in modern analytics platforms.
 
-![Python ETL Architecture Screenshot](etl_pipeline\src\utils\python_etl_architecture.png)
+![Python ETL Architecture Screenshot](etl_pipeline/src/utils/python_etl_architecture.png)
 
 
 ---
@@ -223,7 +221,7 @@ Design a restartable, parameterized, production-ready SSIS pipeline to ingest cu
 
 ### High-Level Architecture
 
-![SSIS ETL Architecture Screenshot](ssis\ssis_architecture.png)
+![SSIS ETL Architecture Screenshot](ssis/ssis_architecture.png)
 
 
 The SSIS pipeline follows a **Raw → Silver** architecture.
@@ -241,7 +239,7 @@ The SSIS pipeline follows a **Raw → Silver** architecture.
 
 ### Control Flow Design
 
-![Control Flow Screenshot](ssis\control_flow.png)
+![Control Flow Screenshot](ssis/control_flow.png)
 
 1. **Data Flow Task**
  - Extracts JSON data
@@ -263,7 +261,7 @@ The SSIS pipeline follows a **Raw → Silver** architecture.
 
 ### Data Flow Design
 
-![Data Flow Screenshot](ssis\data_flow.png)
+![Data Flow Screenshot](ssis/data_flow.png)
 
 - **JSON Source:** Parameterized file path
 - **Derived Column:**
@@ -297,7 +295,7 @@ Supports seamless deployment across environments.
 
 ### Layered Architecture
 
-![DataBase Design Architecture Screenshot](sql\data_modelling.png)
+![DataBase Design Architecture Screenshot](sql/data_modelling.png)
 
 - **Raw:** Audit and replay
 - **Silver:** Clean, validated data
@@ -350,7 +348,7 @@ Includes:
 
 ### Objective
 
-![PowerBI Dashboard Screenshot](powerbi\powerbi_dashboard.png)
+![PowerBI Dashboard Screenshot](powerbi/powerbi_dashboard.png)
 
 Visualize key revenue, customer, and product performance metrics using Gold layer tables.
 

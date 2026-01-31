@@ -6,41 +6,74 @@ This project implements an **end-to-end ETL pipeline** for ingesting, validating
 
 The pipeline follows a **Raw → Silver** data architecture and mirrors real-world data engineering patterns used in modern analytics platforms such as **Microsoft Fabric, Databricks, and Airflow-based batch pipelines**.
 
-Key features include:
-- File-based ingestion
-- Incremental processing using watermarks
-- Data quality validation
-- Error handling & structured logging
-- Idempotent loads using UPSERT logic
+The pipeline is designed to:
+
+- Scale from small sample data to **hundreds of records**
+- Handle **real-world data quality issues**
+- Support **incremental and idempotent processing**
+- Ensure **repeatable and fault-tolerant execution**
+
+The implementation follows modern data engineering practices commonly used in platforms such as **Microsoft Fabric, Databricks, and Airflow-based batch pipelines**.
 
 
 ---
----
 
-## Architecture
+## Dataset Description
 
-Project structure:
+**Source Dataset:** `sales_data.json`
 
-```text
-data/
-├── raw/                     # Incoming JSON files (landing zone)
-├── processed/               # Successfully ingested files
+The dataset contains transactional sales records with nested product attributes and intentionally inconsistent formats to simulate real-world ingestion challenges.
 
-etl_pipeline/
-├── src/
-│   ├── sales_etl_functions.py
-│   └── utils/
-│       ├── config.py
-│       └── logger.py
+### Key Data Challenges
 
-logs/
-├── sales_etl_logs.log       # Pipeline execution logs
-├── invalid_sales.json       # Invalid records with DQ errors
+- Nested JSON structures (`product` object)
+- Multiple date formats
+- Missing and null fields
+- Invalid business values (e.g., negative quantities)
+- Mixed discount representations
 
-```
+To simulate production-scale ingestion, the base dataset was **programmatically expanded to 500–1,000 records**.
 
 ---
+
+## Sales Data Generation Strategy
+
+A custom Python-based data generation script `sales_data_generation.ipynb` was created to test pipeline robustness and validation logic.
+
+### Key Characteristics
+
+- Duplicates and modifies base records to increase volume
+- Preserves referential integrity for valid customer IDs
+- Injects controlled data quality issues:
+  - Null `customer_id`
+  - Negative `quantity`
+  - Missing or invalid `discount`
+- Randomizes:
+  - Transaction timestamps (within 2023)
+  - Regions
+  - Product prices (minor variations)
+
+### Purpose
+
+This approach allows the pipeline to be evaluated against:
+
+- Realistic data errors
+- Data quality validation logic
+- Error handling and observability
+- Restartability
+- Downstream analytics readiness
+
+The generated output is written to the **Raw layer** as JSON files.
+
 ---
+
+## ETL Architecture Overview
+
+The pipeline follows a **Raw → Silver layered architecture**, a common pattern in enterprise analytics platforms.
+
+![Python ETL Architecture](etl_pipeline/src/utils/python_etl_architecture.png)
+
+
 
 ## 🗄️ Database Layers
 
@@ -50,21 +83,20 @@ logs/
 | Silver | silver.sales | Cleaned, deduplicated transactional data |
 | Silver | silver.etl_metadata | Stores incremental load watermark |
 
----
----
+
 
 ## ETL Flow
 
 **1. Extract (File → Raw Table)**
 
 **Source:**
-- JSON files located in data/raw/
+- JSON files located in ``data/raw/``
 
 **Steps:**
 - Check if file exists (non-fatal if missing)
-- Read JSON records
+- Read JSON records using Pandas
 - Insert records into ```raw.sales_raw```
-- Stamp each record with insert_date
+- Stamp each record with ``insert_date``
 - Move successfully processed files to ```data/processed/```
 
 **Failure Handling:**
@@ -155,23 +187,24 @@ After a successful Silver load:
 
 | Component           | Purpose    | 
 |---------------------|-------------|
-| insert_date         | raw.sales_raw |
-| silver.etl_metadata | silver.sales | 
-| Watermark filter    | Prevents reprocessing old data|
+| ``insert_date``        | Raw ingestion timestamp |
+| ``silver.etl_metadata`` | Stores processing watermark | 
+| Watermark filter    | Prevents reprocessing|
 | UPSERT              |	Guarantees idempotency |
 
 
-This design allows:
+The watermark-based design ensures that **only new or changed records** are processed on each run.
+Combined with UPSERT logic, multiple executions always result in the **same final state**.
+
+This supports:
 - Safe re-runs
 - Partial failures without corruption
 - Scalable batch processing
 
----
----
 
 ## Logging & Observability
 
-Logs capture:
+Structured logging captures:
 - Pipeline start and end events
 - Record counts per stage
 - Data quality violations
@@ -187,7 +220,7 @@ logs/sales_etl_logs.log
 ---
 ---
 
-## Tech Stack
+## Technology Stack
 
 - Python 3
 - PostgreSQL
@@ -195,3 +228,21 @@ logs/sales_etl_logs.log
 - psycopg2
 - JSON-based ingestion
 - File-based data lake simulation
+
+## Why This Design? 
+
+- Raw/Silver separation enables replay, auditing, and fault tolerance 
+- Watermark-based incremental loading avoids reprocessing 
+- UPSERT logic ensures idempotency and safe re-runs 
+- Vectorized Pandas transformations improve performance at scale 
+
+## Outcome
+
+This ETL pipeline demonstrates:
+
+- Incremental data processing
+- Strong data validation and auditing
+- Fault tolerance and restartability
+- Analytics-ready data modeling
+
+It forms a solid foundation for downstream analytical workloads and BI consumption, closely resembling real-world production data engineering pipelines.
