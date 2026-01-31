@@ -40,9 +40,17 @@ sales-and-customer-analytics-platform/
 |    ├── invalid_customers.csv    # Invalid records with DQ errors
 |
 ├── sql/
-│   ├── schema.sql
-│   ├── indexes.sql
-│   └── analytical_queries.sql
+|    ├──gold/
+|       ├── schema.sql
+|       ├── indexes.sql
+|       └── analytical_queries.sql
+|       └── query_screenshots/
+|
+|    ├──raw/
+|       ├── schema.sql
+|    ├──silver/
+|       ├── schema.sql
+|       ├── silver_customer.sql   # SSIS SQL Script – Customer UPSERT Query
 │
 ├── ssis/
 │   ├── CustomerData.dtsx
